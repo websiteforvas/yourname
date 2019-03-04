@@ -1,0 +1,432 @@
+backend:
+  name: git-gateway
+
+media_folder: "static/uploads" # Folder where user uploaded files should go
+public_folder: "uploads"
+
+collections: # A list of collections the CMS should be able to edit
+  - name: "about" # Used in routes, ie.: /admin/collections/:slug/edit
+    label: "About" # Used in the UI, ie.: "New Post"
+    folder: "content/post/config/about" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields: # The fields each document in this collection have
+      - {label: "Title", name: "title", widget: "string", default: "About", hint: "EXISTING FILE WITH THE SAME TITLE WILL BE OVERWRITTEN."}
+      - {label: "Draft", name: "draft", widget: "hidden", default: true}
+      - label: "About"
+        name: "a_about"
+        widget: "object"
+        fields:
+          - {label: "Name", name: "a_name", widget: "string"}
+          - {label: "Address", name: "b_adress", widget: "string"}
+          - {label: "Role", name: "c_role", widget: "string", hint: "e.g., Virtual Assistant."}
+          - label: "Organizations"
+            name: "d_organizations"
+            widget: "object"
+            fields:
+              - label: "Organization"
+                name: "a_org_one"
+                widget: "object"
+                fields:
+                  - {label: "Name", name: "a_org_1", widget: "string", hint: "e.g., FreeLancers In the Philippines."}
+                  - {label: "URL", name: "b_org_url_1", widget: "string", hint: "e.g., https://www.facebook.com/groups/wfhr.io/"}
+              - label: "Organization"
+                name: "b_org_two"
+                widget: "object"
+                required: false
+                fields:
+                  - {label: "Name", name: "a_org_2", widget: "string", required: false}
+                  - {label: "URL", name: "b_org_url_2", widget: "string", required: false}
+              - label: "Organization"
+                name: "c_org_three"
+                widget: "object"
+                required: false
+                fields:
+                  - {label: "Name", name: "a_org_3", widget: "string", required: false}
+                  - {label: "URL", name: "b_org_url_3", widget: "string", required: false}
+          - {label: "Interests", name: "e_interests", widget: "string", hint: "e.g Content Marketing, Data Visualization, and Interactive Learning."}
+          - label: "Biography"
+            name: "f_biography"
+            widget: "object"
+            fields:
+              - {label: "Short Bio", name: "a_short_bio", widget: "string", hint: "Displayed in user profile at end of posts.", required: false}
+              - {label: "Bio", name: "b_bio", widget: "markdown", hint: "e.g., I am a virtual assistant who has been working behind the scenes for the past 9 years. I work with coaches, internet marketers, speakers etc. to help them build their businesses. I free up their time so that they can do what they do best, while I do what I do best, which is ensuring the back end of their business runs smoothly and efficiently. I love strategizing with my clients and showing them how to rock their businesses to the core! I am always ready for new challenges and meet them head-on."}
+  
+  - name: "education" # Used in routes, ie.: /admin/collections/:slug/edit
+    label: "Education" # Used in the UI, ie.: "New Post"
+    folder: "content/post/config/education" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields: # The fields each document in this collection have
+      - {label: "Title", name: "title", widget: "string", default: "Education", hint: "EXISTING FILE WITH THE SAME TITLE WILL BE OVERWRITTEN."}
+      - {label: "Draft", name: "draft", widget: "hidden", default: true}
+      - label: "Education"
+        name: "b_education"
+        widget: "object"
+        fields:
+          - label: "Education"
+            name: "a_education_one"
+            widget: "object"
+            fields:
+              - {label: "Course", name: "a_course_one", widget: "string", hint: "e.g., Bachelor of Science in Business Administration."}
+              - {label: "Institution", name: "b_institution_one", widget: "string", hint: "e.g., University of the Philippines."}
+              - {label: "Year", name: "c_year_one", widget: "string", hint: "YYYY"}
+          - label: "Education"
+            name: "b_education_two"
+            widget: "object"
+            required: false
+            fields:
+              - {label: "Course", name: "a_course_two", widget: "string", required: false}
+              - {label: "Institution", name: "b_institution_two", widget: "string", required: false}
+              - {label: "Year", name: "c_year_two", widget: "string", required: false}
+          - label: "Education"
+            name: "c_education_three"
+            widget: "object"
+            required: false
+            fields:
+              - {label: "Course", name: "a_course_three", widget: "string", required: false}
+              - {label: "Institution", name: "b_institution_three", widget: "string", required: false}
+              - {label: "Year", name: "c_year_three", widget: "string", required: false}
+
+  - name: "skills" # Used in routes, ie.: /admin/collections/:slug/edit
+    label: "Skills" # Used in the UI, ie.: "New Post"
+    folder: "content/post/config/skills" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields: # The fields each document in this collection have
+      - {label: "Title", name: "title", widget: "string", default: "Skills", hint: "EXISTING FILE WITH THE SAME TITLE WILL BE OVERWRITTEN."}
+      - {label: "Draft", name: "draft", widget: "hidden", default: true}
+      - label: "Skills"
+        name: "c_skills"
+        widget: "object"
+        fields:
+          - label: "Skill"
+            name: "a_skills_one"
+            widget: "object"
+            fields:
+              - {label: "Name", name: "a_skill_one", widget: "string", hint: "e.g., Email Management."}
+              - {label: "Description", name: "b_description_one", widget: "string", hint: "e.g., Filtering, prioritizing, and delegating, your client's email to 'Inbox Zero'."}
+          - label: "Skill"
+            name: "b_skills_two"
+            widget: "object"
+            fields:
+              - {label: "Name", name: "a_skill_two", widget: "string", hint: "e.g., Social Media Management."}
+              - {label: "Description", name: "b_description_two", widget: "string", hint: "e.g., Maximizing a business' use of social media to communicate with customers effectively."}
+          - label: "Skill"
+            name: "c_skills_three"
+            widget: "object"
+            fields:
+              - {label: "Name", name: "a_skill_three", widget: "string", hint: "e.g., Website Updates."}
+              - {label: "Description", name: "b_description_three", widget: "string", hint: "e.g., Getting new and updated information on your client's websites without taking down the internet."}
+          - label: "Skill"
+            name: "d_skills_four"
+            widget: "object"
+            required: false
+            fields:
+              - {label: "Name", name: "a_skill_four", widget: "string", required: false}
+              - {label: "Description", name: "b_description_four", widget: "string", required: false}
+          - label: "Skill"
+            name: "e_skills_five"
+            widget: "object"
+            required: false
+            fields:
+              - {label: "Name", name: "a_skill_five", widget: "string", required: false}
+              - {label: "Description", name: "b_description_five", widget: "string", required: false}
+          - label: "Skill"
+            name: "f_skills_six"
+            widget: "object"
+            required: false
+            fields:
+              - {label: "Name", name: "a_skill_six", widget: "string", required: false}
+              - {label: "Description", name: "b_description_six", widget: "string", required: false}
+          - label: "Skill"
+            name: "g_skills_seven"
+            widget: "object"
+            required: false
+            fields:
+              - {label: "Name", name: "a_skill_seven", widget: "string", required: false}
+              - {label: "Description", name: "b_description_seven", widget: "string", required: false}
+          - label: "Skill"
+            name: "h_skills_eight"
+            widget: "object"
+            required: false
+            fields:
+              - {label: "Name", name: "a_skill_eight", widget: "string", required: false}
+              - {label: "Description", name: "b_description_eight", widget: "string", required: false}
+          - label: "Skill"
+            name: "i_skills_nine"
+            widget: "object"
+            required: false
+            fields:
+              - {label: "Name", name: "a_skill_nine", widget: "string", required: false}
+              - {label: "Description", name: "b_description_nine", widget: "string", required: false}
+  
+  - name: "accomplishments" # Used in routes, ie.: /admin/collections/:slug/edit
+    label: "Accomplishments" # Used in the UI, ie.: "New Post"
+    folder: "content/post/config/accomplishments" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields: # The fields each document in this collection have      
+      - {label: "Title", name: "title", widget: "string", default: "Accomplishments", hint: "EXISTING FILE WITH THE SAME TITLE WILL BE OVERWRITTEN."}
+      - {label: "Draft", name: "draft", widget: "hidden", default: true}
+      - label: "Accomplishments"
+        name: "d_accomplishments"
+        widget: "object"
+        fields:
+          - label: "Accomplishment"
+            name: "a_accomplishments_one"
+            widget: "object"
+            fields:
+              - {label: "Title", name: "a_title_one", widget: "string", hint: "e.g., Virtual Assistant Bootcamp."}
+              - {label: "Organization", name: "b_organization_one", widget: "string", hint: "e.g., FreeLancers In the Philippines."}
+              - {label: "Certification URL", name: "c_certification_url_one", widget: "string", hint: "e.g https://info.credly.com/juanadelacruz/"}
+              - {label: "Date Start", name: "d_date_start_one", widget: "string", hint: "MMM DD, YYYY"}
+              - {label: "Date End", name: "e_date_end_one", widget: "string", hint: "MMM DD, YYYY"}
+              - {label: "Description", name: "f_description_ten", widget: "string", hint: "e.g., Bootcamp for aspiring Filipino Virtual Assistants."}
+          - label: "Accomplishment"
+            name: "b_accomplishments_two"
+            widget: "object"
+            required: false
+            fields:
+              - {label: "Title", name: "a_title_two", widget: "string", required: false}
+              - {label: "Organization", name: "b_organization_two", widget: "string", required: false}
+              - {label: "Certification URL", name: "c_certification_url_two", widget: "string", required: false}
+              - {label: "Date Start", name: "d_date_start_two", widget: "string", required: false}
+              - {label: "Date End", name: "e_date_end_two", widget: "string", required: false}
+              - {label: "Description", name: "f_description_eleven", widget: "string", required: false}
+          - label: "Accomplishment"
+            name: "c_accomplishments_three"
+            widget: "object"
+            required: false
+            fields:
+              - {label: "Title", name: "a_title_three", widget: "string", required: false}
+              - {label: "Organization", name: "b_organization_three", widget: "string", required: false}
+              - {label: "Certification URL", name: "c_certification_url_three", widget: "string", required: false}
+              - {label: "Date Start", name: "d_date_start_three", widget: "string", required: false}
+              - {label: "Date End", name: "e_date_end_three", widget: "string", required: false}
+              - {label: "Description", name: "f_description_twelve", widget: "string", required: false}
+  
+  - name: "experience" # Used in routes, ie.: /admin/collections/:slug/edit
+    label: "Experience" # Used in the UI, ie.: "New Post"
+    folder: "content/post/config/experience" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields: # The fields each document in this collection have        
+      - {label: "Title", name: "title", widget: "string", default: "Experience", hint: "EXISTING FILE WITH THE SAME TITLE WILL BE OVERWRITTEN."}
+      - {label: "Draft", name: "draft", widget: "hidden", default: true}
+      - label: "Experience"
+        name: "e_experience"
+        widget: "object"
+        fields:
+          - label: "Experience"
+            name: "a_experience_one"
+            widget: "object"
+            fields:
+              - {label: "Title", name: "a_title_four", widget: "string", hint: "e.g., Virtual Assistant."}
+              - {label: "Company", name: "b_company_one", widget: "string", hint: "e.g., Plantstar"}
+              - {label: "Company_URL", name: "c_company_url_one", widget: "string", hint: "e.g., https://www.plantstar.com/", required: false}
+              - {label: "Date Start", name: "d_date_start_four", widget: "string", hint: "MMM DD, YYYY"}
+              - {label: "Date End", name: "e_date_end_four", widget: "string", hint: "MMM DD, YYYY"}
+              - {label: "Description", name: "f_description_thirteen", widget: "string", hint: "e.g., Plantstar is a new concept restaurant for the Greater St. Louis area that provides a quick, healthy, plant-based alternative to the normal fast casual dining experience. As a consultant to the founder, I helped in all areas necessary to launching the company including creation of brand material and standards, menu development, market research, pricing, and marketing strategy."}
+          - label: "Experience"
+            name: "b_experience_two"
+            widget: "object"
+            required: false
+            fields:
+              - {label: "Title", name: "a_title_five", widget: "string", required: false}
+              - {label: "Company", name: "b_company_two", widget: "string", required: false}
+              - {label: "Company_URL", name: "c_company_url_two", widget: "string", required: false}
+              - {label: "Date Start", name: "d_date_start_five", widget: "string", required: false}
+              - {label: "Date End", name: "e_date_end_five", widget: "string", required: false}
+              - {label: "Description", name: "f_description_forteen", widget: "string", required: false}
+          - label: "Experience"
+            name: "c_experience_three"
+            widget: "object"
+            required: false
+            fields:
+              - {label: "Title", name: "a_title_six", widget: "string", required: false}
+              - {label: "Company", name: "b_company_three", widget: "string", required: false}
+              - {label: "Company_URL", name: "c_company_url_three", widget: "string", required: false}
+              - {label: "Date Start", name: "d_date_start_six", widget: "string", required: false}
+              - {label: "Date End", name: "e_date_end_six", widget: "string", required: false}
+              - {label: "Description", name: "f_description_fifteen", widget: "string", required: false}
+          - label: "Experience"
+            name: "d_experience_four"
+            widget: "object"
+            required: false
+            fields:
+              - {label: "Title", name: "a_title_seven", widget: "string", required: false}
+              - {label: "Company", name: "b_company_four", widget: "string", required: false}
+              - {label: "Company_URL", name: "c_company_url_four", widget: "string", required: false}
+              - {label: "Date Start", name: "d_date_start_seven", widget: "string", required: false}
+              - {label: "Date End", name: "e_date_end_seven", widget: "string", required: false}
+              - {label: "Description", name: "f_description_sixteen", widget: "string", required: false}
+          - label: "Experience"
+            name: "e_experience_five"
+            widget: "object"
+            required: false
+            fields:
+              - {label: "Title", name: "a_title_eight", widget: "string", required: false}
+              - {label: "Company", name: "b_company_five", widget: "string", required: false}
+              - {label: "Company_URL", name: "c_company_url_five", widget: "string", required: false}
+              - {label: "Date Start", name: "d_date_start_five", widget: "string", required: false}
+              - {label: "Date End", name: "e_date_end_eight", widget: "string", required: false}
+              - {label: "Description", name: "f_description_seventeen", widget: "string", required: false}
+
+  - name: "projects" # Used in routes, ie.: /admin/collections/:slug/edit
+    label: "Projects" # Used in the UI, ie.: "New Post"
+    folder: "content/post/config/projects" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields: # The fields each document in this collection have              
+      - {label: "Title", name: "title", widget: "string", default: "Projects", hint: "EXISTING FILE WITH THE SAME TITLE WILL BE OVERWRITTEN."}
+      - {label: "Draft", name: "draft", widget: "hidden", default: true}
+      - label: "Projects/Portfolio"
+        name: "f_projects"
+        widget: "object"
+        fields:
+          - label: "Project/Portfolio"
+            name: "a_project_one"
+            widget: "object"
+            required: false
+            fields:
+              - {label: "Title", name: "a_title_nine", widget: "string", hint: "e.g., COBLOGGER", required: false}
+              - {label: "Date", name: "b_date_one", widget: "string", hint: "MMM DD, YYYY", required: false}
+              - {label: "Summary", name: "c_summary_one", widget: "string", hint: "e.g., Write, edit, and update blog articles and case studies for clarity, helpfulness, SEO, shareability, staying true to brand, and accuracy.", required: false}
+              - {label: "Tag", name: "d_tag_one", widget: "string", hint: "e.g., Content Marketing.", required: false}
+              - {label: "External Link", name: "e_external_link_one", widget: "string", hint: "e.g., https://www.coblogger.com/", required: false}
+              - {label: "Description", name: "f_description_eighteen", widget: "string", hint: "More details about the project/portfolio.", required: false}
+          - label: "Project/Portfolio"
+            name: "b_project_two"
+            widget: "object"
+            required: false
+            fields:
+              - {label: "Title", name: "a_title_ten", widget: "string", required: false}
+              - {label: "Date", name: "b_date_two", widget: "string", required: false}
+              - {label: "Summary", name: "c_summary_two", widget: "string", required: false}
+              - {label: "Tag", name: "d_tag_two", widget: "string", required: false}
+              - {label: "External Link", name: "e_external_link_two", widget: "string", required: false}
+              - {label: "Description", name: "f_description_nineteen", widget: "string", required: false}
+          - label: "Project/Portfolio"
+            name: "c_project_three"
+            widget: "object"
+            required: false
+            fields:
+              - {label: "Title", name: "a_title_eleven", widget: "string", required: false}
+              - {label: "Date", name: "b_date_three", widget: "string", required: false}
+              - {label: "Summary", name: "c_summary_three", widget: "string", required: false}
+              - {label: "Tag", name: "d_tag_three", widget: "string", required: false}
+              - {label: "External Link", name: "e_external_link_three", widget: "string", required: false}
+              - {label: "Description", name: "f_description_twenty", widget: "string", required: false}
+
+  - name: "contact" # Used in routes, ie.: /admin/collections/:slug/edit
+    label: "Contact" # Used in the UI, ie.: "New Post"
+    folder: "content/post/config/contact" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields: # The fields each document in this collection have      
+      - {label: "Title", name: "title", widget: "string", default: "Contact", hint: "EXISTING FILE WITH THE SAME TITLE WILL BE OVERWRITTEN."}
+      - {label: "Draft", name: "draft", widget: "hidden", default: true}
+      - label: "Contact"
+        name: "g_contact"
+        widget: "object"
+        fields:              
+          - {label: "Email", name: "a_email", widget: "string"}
+          - {label: "Phone", name: "b_phone", widget: "number"}
+          - label: "Social Media"
+            name: "c_social_media"
+            widget: "object"
+            fields:
+              - {label: "Twitter Username", name: "a_twitter", widget: "string"}
+              - {label: "Facebook Username", name: "b_facebook", widget: "string"}
+              - {label: "Linkedin Username", name: "c_linkedin", widget: "string"}
+              - {label: "Google Plus Username", name: "d_google_plus", widget: "string"}
+              - {label: "Skype Username", name: "e_skype", widget: "string"}
+  
+  - name: "website_config" # Used in routes, ie.: /admin/collections/:slug/edit
+    label: "Website Config" # Used in the UI, ie.: "New Post"
+    folder: "content/post/config/website-config" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields: # The fields each document in this collection have      
+      - {label: "Title", name: "title", widget: "string", default: "Website Config", hint: "EXISTING FILE WITH THE SAME TITLE WILL BE OVERWRITTEN."}
+      - {label: "Draft", name: "draft", widget: "hidden", default: true}
+      - label: "Website"
+        name: "h_website"
+        widget: "object"
+        fields:        
+          - label: "Plan"
+            name: "a_plan"
+            widget: "select"
+            options: ["Basic", "Premium"]
+          - {label: "Domain Name", name: "b_baseurl", widget: "string", hint: "e.g., juanadelacruz.com"}
+          - {label: "Private eMail", name: "c_private_email", widget: "string", hint: "e.g., hello@juanadelacruz.com, info@juanadelacruz.com, and contact@juanadelacruz.com."}
+          - {label: "Title of Site", name: "d_title_of_site", widget: "string", hint: "The title meta tag is the most important element in the site optimization process. Many search engines pay particular attention to keywords that occur in the title tag. As well, search engines generally display the title tag's contents in their site listings."}
+          - {label: "Description", name: "e_description", widget: "string", hint: "The description meta tag defines site information a search engine displays when it lists the site. The description meta tag should concisely explain the nature and contents of the page."}
+          - label: "Color Theme"
+            name: "f_color_theme"
+            widget: "select"
+            hint: "View color themes at https://websiteforvas.com/#themes."
+            options: ["default", "ocean", "forest", "dark", "apogee", "1950s", "coffee", "cupcake"]
+          - label: "Menu"
+            name: "menu"
+            widget: "select"
+            multiple: true
+            hint: "Top to bottom."
+            options: ["About", "Skills", "Experience", "Accomplishments", "Posts", "Projects", "Tags", "Contact", "Twitter", "Facebook", "Search", "Night Mode"]
+          - label: "Widgets"
+            name: "widgets"
+            widget: "select"
+            multiple: true
+            hint: "Left to right."
+            options: ["About", "Skills", "Experience", "Accomplishments", "Posts", "Projects", "Tags", "Contact"]
+          - label: "Reports"
+            name: "g_reports"
+            widget: "object"
+            fields:
+              - {label: "Google Analytics Tracking ID", name: "a_googleAnalytics", widget: "string", required: false}
+              - {label: "Disqus Shortname", name: "b_disqusShortname", widget: "string", required: false}
+          - label: "Advance Options"
+            name: "h_advance_options"
+            widget: "object"
+            fields:
+              - label: "Do you have a logo?"
+                name: "a_do_you_have_a_logo"
+                widget: "select"
+                options: ["Yes", "No"]
+                required: false
+              - label: "Do you use Gravatar?"
+                name: "b_do_you_use_gravatar"
+                widget: "select"
+                options: ["Yes", "No"]
+                required: false
+              - label: "Menu Align Right?"
+                name: "c_menu_align_right"
+                widget: "select"
+                options: ["Yes", "No"]
+                required: false
+              - label: "Activate Privacy Pack?"
+                name: "d_privacy_pack?"
+                widget: "select"
+                options: ["Yes", "No"]
+  - name: "blog" # Used in routes, ie.: /admin/collections/:slug/edit
+    label: "Blog" # Used in the UI, ie.: "New Post"
+    folder: "content/post" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields: # The fields each document in this collection have
+      - {label: "Title", name: "title", widget: "string", hint: "EXISTING FILE WITH THE SAME TITLE WILL BE OVERWRITTEN."}
+      - {label: "Draft", name: "draft", widget: "hidden", default: true}
+      - {label: "Subtitle", name: "subtitle", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Last Mod Date", name: "lastmod", widget: "datetime"}
+      - label: "Author"
+        name: "authors"
+        widget: "list"
+        default: ["Admin"]
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        default: [""]
+      - {label: "Summary", name: "summary", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}                
